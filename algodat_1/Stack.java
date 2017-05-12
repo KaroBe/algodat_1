@@ -3,7 +3,7 @@ package algodat_1;
 public class Stack {
 	
 	//Attributes
-	Linked_List stack;
+	private Linked_List stack;
 	
 	//Constructor
 	Stack()

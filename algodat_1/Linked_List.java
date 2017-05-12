@@ -4,8 +4,9 @@ package algodat_1;
 public class Linked_List {
 	
 	//Attribute
-	Node front;
-	Node rear;
+	private Node front;
+	private Node rear;
+	private int size;
 	
 	
 	//Konstruktor
@@ -17,6 +18,11 @@ public class Linked_List {
 	//Gibt zurueck ob die Liste leer ist
 	public boolean isEmpty(){
 		return front == null;
+	}
+	
+	public int size()
+	{
+		return size;
 	}
 
 	//push front
@@ -30,6 +36,7 @@ public class Linked_List {
 			front = new Node(data);
 			rear = front;
 		}
+		size += 1;
 	}
 	
 	//push rear
@@ -44,6 +51,7 @@ public class Linked_List {
 				front = new Node(data);
 				rear = front;
 			}
+			size += 1;
 		}
 	
 	//popFront
@@ -62,6 +70,7 @@ public class Linked_List {
 		{
 			front = former_front.getNextNode();
 		}
+		size -= 1;
 		return former_front.data;
 	}
 	
@@ -78,6 +87,7 @@ public class Linked_List {
 		{
 			rear = former_rear.getPrevNode();
 		}
+		size -= 1;
 		return former_rear.data;
 	}
 	

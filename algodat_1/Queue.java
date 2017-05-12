@@ -3,7 +3,7 @@ package algodat_1;
 public class Queue {
 	
 	//Attributes
-	Linked_List queue;
+	private Linked_List queue;
 	
 	//Constructor
 	Queue()
@@ -11,17 +11,22 @@ public class Queue {
 		queue = new Linked_List();
 	}
 	
+	int size()
+	{
+		return queue.size();
+	}
+	
 	void enqueue(char data)
 	{
 		queue.pushFront(data);
 	}
 	
-	char dequeue()
+	char dequeue() throws EmptyListException
 	{
 		return queue.popRear();
 	}
 	
-	char peek()
+	char peek() throws EmptyListException
 	{
 		return queue.peekRear();
 	}
@@ -30,4 +35,18 @@ public class Queue {
 	{
 		return queue.isEmpty();
 	}
+	
+	String to_string() throws EmptyListException
+	{
+		String stringQueue = "";
+		
+		for (int i = 0; i < this.size(); ++i)
+		{
+			stringQueue += this.dequeue();
+		}
+		
+		return stringQueue;
+	}
+	
+	//tostring für ausgabe der Präfix Expression
 }

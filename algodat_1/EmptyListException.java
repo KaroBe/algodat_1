@@ -1,5 +1,7 @@
 package algodat_1;
 
+@SuppressWarnings("serial")
+
 class EmptyListException extends Exception
 {
 	EmptyListException()
