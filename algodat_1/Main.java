@@ -60,7 +60,7 @@ public class Main {
 			{
 				//while there are operators in stack to compare with
 				//pop all operators in the stack that have greater or equal priority to new operator
-				while(!conversion.is_empty() && conversion.peek() >= getPriority(next_char))
+				while(!conversion.is_empty() && getPriority(conversion.peek()) >= getPriority(next_char))
 				{
 					postfix.enqueue(conversion.pop());
 				}
@@ -73,16 +73,26 @@ public class Main {
 				conversion.push(infix.dequeue());
 			}
 			
-			//RIGHT parenthesis )
+			//RIGHT parenthesis ) -> means that a left parenthesis appeared some time ago
 			else if (next_char == ')')
 			{
 				//pop from stack and enqueue operators to postfix expression
 				//until matching left parenthesis is found
-				while (conversion.peek() != '('){
-					postfix.enqueue(conversion.pop());
+				
+				//solange das oberste Element kein ( ist
+				char y = conversion.peek();
+				int i = 0;
+				while(conversion.peek() != '(')
+				{
+					//hau das oberste Element in die postfix
+					char x = conversion.pop();
+					postfix.enqueue(x);
+					i++;
 				}
-				conversion.pop(); //pop left parenthesis
-				infix.dequeue(); //dequeue right parenthesis
+				//wenn du dann das ( gefunden hast, pop es, ohne es irgendwo
+				//hin zu schreiben und schmeiß das ) auch weg aus der infix
+				conversion.pop();
+				infix.dequeue();
 			}
 			
 			//OPERAND enqueue operands
@@ -109,30 +119,6 @@ public class Main {
 	}
 	
 	public static void main(String[] args){
-		Linked_List testL = new Linked_List();
-		testL.pushFront('a');
-		System.out.println("a - " + testL.to_string());
-		testL.pushFront('b');	
-		System.out.println("ba - " + testL.to_string());
-		testL.pushFront('c');
-		System.out.println("cba - " + testL.to_string());
-		testL.popFront();
-		System.out.println("ba - " + testL.to_string());
-		testL.popRear();
-		System.out.println("b - " + testL.to_string());
-		testL.popRear();
-		System.out.println("empty list - " + testL.to_string());		
-		/*
-		Queue test = new Queue();
-		System.out.println("empty " + test.to_string());
-		test.enqueue('a');
-		System.out.println("a: " + test.to_string());
-		test.enqueue('b');
-		System.out.println("a,b: " + test.to_string());
-		test.enqueue('c');
-		System.out.println("a,b,c: " + test.to_string());
-		*/
-		
 		//Conversion
 		try {
 			Queue postfix = conversion();

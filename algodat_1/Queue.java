@@ -37,7 +37,7 @@ public class Queue {
 	}
 	
 	//!! THIS LEAVES THE QUEUE EMPTY !!
-	String to_string() throws EmptyListException
+	String to_string()
 	{
 		return queue.to_string();
 	}

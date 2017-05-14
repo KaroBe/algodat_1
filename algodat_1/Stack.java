@@ -30,4 +30,9 @@ public class Stack {
 	{
 		return stack.isEmpty();
 	}
+	
+	String to_string()
+	{
+		return stack.to_string();
+	}
 }
