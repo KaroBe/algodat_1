@@ -6,13 +6,14 @@ public class Linked_List {
 	//Attribute
 	private Node front;
 	private Node rear;
-	private int size;
+	private int size = 0;
 	
 	
 	//Konstruktor
 	public Linked_List(){
 		this.front = null;
 		this.rear = null;
+		this.size = 0;
 	}
 	
 	//Gibt zurueck ob die Liste leer ist
@@ -30,7 +31,9 @@ public class Linked_List {
 		if (front != null){
 			Node former_front = front;
 			front = new Node(data);
-			front.setNextNode(former_front);
+			
+			front.setNextNode(former_front); //prev = null
+			former_front.setPrevNode(front); //next = null or other node
 		}
 		else{
 			front = new Node(data);
@@ -44,8 +47,9 @@ public class Linked_List {
 			if (rear != null){
 				Node former_rear = rear;
 				rear = new Node(data);
-				former_rear.setNextNode(rear);
-				rear.setPrevNode(former_rear);
+				
+				former_rear.setNextNode(rear); //prev = null or other node
+				rear.setPrevNode(former_rear); //next = null
 			}
 			else{
 				front = new Node(data);
@@ -55,10 +59,11 @@ public class Linked_List {
 		}
 	
 	//popFront
-	public char popFront() throws EmptyListException{
+	public char popFront(){
 		if (front == null)
 		{
-			throw new EmptyListException();
+			System.out.println("EmptyList bei PopFront");
+			return 'x';
 		}
 		Node former_front = front;
 		if (front.getNextNode() == null)
@@ -71,34 +76,63 @@ public class Linked_List {
 			front = former_front.getNextNode();
 		}
 		size -= 1;
-		return former_front.data;
+		return former_front.getValue();
 	}
 	
 	//popRear
-	//NO EXCEPTION HANDLING FOR EMPTY LISTS
 	public char popRear(){
-		Node former_rear = rear;
-		if (rear.getPrevNode() == null)
+		if (rear == null)
 		{
+			System.out.println("EmptyList bei PopRear");
+			size -= 1;
+			return 'x';
+		}
+		else if (front == rear)
+		{
+			Node former_rear = rear;
 			front = null;
 			rear = null;
+			size -= 1;
+			return former_rear.getValue();
 		}
 		else
 		{
-			rear = former_rear.getPrevNode();
+			Node former_rear = rear;
+			rear = former_rear.getPrevNode(); //rear zeigt auf vorletztes element
+			former_rear.getPrevNode().setNextNode(null); //vorletztes element zeigt auf null
+			size -= 1;
+			return former_rear.getValue();
 		}
-		size -= 1;
-		return former_rear.data;
 	}
 	
 	//peek front 	//NO EXCEPTION HANDLING FOR EMPTY LISTS
 	public char peekFront(){
-		return front.data;
+		return front.getValue();
 	}
 	
 	//peek rear 	//NO EXCEPTION HANDLING FOR EMPTY LISTS
 	public char peekRear(){
-		return rear.data;
+		return rear.getValue();
+	}
+	
+	public String to_string()
+	{
+		String output = "";
+		Node current = this.front;
+		if(current == null)
+		{
+			return output;
+		}
+		else
+		{
+			while(current != rear)
+			{
+				output += current.getValue();
+				current = current.getNextNode();
+			}
+			output += current.getValue();
+			return output;
+		}
 	}
 	
 	

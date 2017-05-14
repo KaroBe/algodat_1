@@ -36,16 +36,10 @@ public class Queue {
 		return queue.isEmpty();
 	}
 	
+	//!! THIS LEAVES THE QUEUE EMPTY !!
 	String to_string() throws EmptyListException
 	{
-		String stringQueue = "";
-		
-		for (int i = 0; i < this.size(); ++i)
-		{
-			stringQueue += this.dequeue();
-		}
-		
-		return stringQueue;
+		return queue.to_string();
 	}
 	
 	//tostring für ausgabe der Präfix Expression

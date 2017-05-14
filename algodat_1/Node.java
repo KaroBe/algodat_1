@@ -5,9 +5,9 @@ package algodat_1;
 public class Node {
 	
 	//Attribute
-	Node next;
-	Node prev; //prevoius node
-	char data;
+	private Node next;
+	private Node prev; //previous node
+	private char data;
 	
 	//Konstruktor
 	public Node(char data){
