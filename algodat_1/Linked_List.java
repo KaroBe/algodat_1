@@ -135,5 +135,12 @@ public class Linked_List {
 		}
 	}
 	
+	public String reversed_to_string()
+	{
+		String postfix = this.to_string();
+		String reverse = new StringBuffer(postfix).reverse().toString();
+		return reverse;
+	}
+	
 	
 }

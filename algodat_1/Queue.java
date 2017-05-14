@@ -36,10 +36,14 @@ public class Queue {
 		return queue.isEmpty();
 	}
 	
-	//!! THIS LEAVES THE QUEUE EMPTY !!
 	String to_string()
 	{
 		return queue.to_string();
+	}
+	
+	String reversed_to_string()
+	{
+		return queue.reversed_to_string();
 	}
 	
 	//tostring für ausgabe der Präfix Expression

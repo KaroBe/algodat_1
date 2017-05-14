@@ -80,14 +80,11 @@ public class Main {
 				//until matching left parenthesis is found
 				
 				//solange das oberste Element kein ( ist
-				char y = conversion.peek();
-				int i = 0;
 				while(conversion.peek() != '(')
 				{
 					//hau das oberste Element in die postfix
 					char x = conversion.pop();
 					postfix.enqueue(x);
-					i++;
 				}
 				//wenn du dann das ( gefunden hast, pop es, ohne es irgendwo
 				//hin zu schreiben und schmeiß das ) auch weg aus der infix
@@ -114,23 +111,63 @@ public class Main {
 	 * Postfix Expression in Queue einlesen / schon in Queue speichern??
 	 * Auslesen und berechnen
 	 */
-	public static int calculate(){
-		return 0;
+	public static int calculate(Queue postfix) throws EmptyListException{
+		Stack calculate = new Stack();
+		
+		//solange queue nicht leer
+		while(!postfix.is_empty())
+		{
+			char next_char = postfix.peek();
+			//wenn op
+			if (next_char == '+' || next_char == '-' || next_char == '*' ||	next_char == '/')
+			{
+				/* TODO
+				 * implement template class thing for linked list, so that either
+				 * float or int can be contained
+				float x = (float)Character.getNumericValue(calculate.pop());
+				float y = (float)Character.getNumericValue(calculate.pop());
+				*/
+				
+				int x = Character.getNumericValue(calculate.pop());
+				int y = Character.getNumericValue(calculate.pop());
+				
+				switch (next_char)
+				{
+				case '+':
+					calculate.push((char)(x + y));
+					break;
+				case '-':
+					calculate.push((char)(x - y));
+					break;
+				case '*':
+					calculate.push((char)(x * y));
+					break;
+				case '/':
+					calculate.push((char)(x / y));
+					break;
+				}			
+				
+				postfix.dequeue();
+			}
+			//wenn zahl
+			else
+			{
+				calculate.push(postfix.dequeue());
+			}
+		}
+		return calculate.pop();
 	}
 	
 	public static void main(String[] args){
-		//Conversion
+		//Conversion and Calculation of infix expression
 		try {
 			Queue postfix = conversion();
-			System.out.println(postfix.to_string());
+			System.out.println("Postfix expression: " + postfix.to_string());
+			int result = calculate(postfix);
+			System.out.println("Result: " + result);
 		} catch (EmptyListException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-		//Calculate
-		
-		//Ausgabe des Ergebnis und der Postfix Expression
 	}
-
 }
